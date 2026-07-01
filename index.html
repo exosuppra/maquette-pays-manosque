@@ -127,7 +127,8 @@
   .agenda .title-ico{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px}
   .agenda .title-ico h2{font-family:'Playfair Display',serif;font-size:2.1rem;color:var(--violet);margin:0}
   .agenda .title-ico img{height:34px;width:auto}
-  .agenda-layout{display:grid;grid-template-columns:1fr 340px;gap:28px;margin-top:22px;align-items:start}
+  .agenda-layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;margin-top:22px;align-items:start}
+  .agenda-layout>div{min-width:0}
   /* colonne gauche : vignettes défilantes */
   .a-scroll{display:grid;grid-auto-flow:column;grid-auto-columns:230px;gap:18px;overflow-x:auto;padding-bottom:14px;scroll-snap-type:x mandatory}
   .a-scroll::-webkit-scrollbar{height:8px}
