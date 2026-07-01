@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pays de Manosque — Maquette nouvelle arborescence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --violet:#7f4486;
+    --violet-dark:#5e2f64;
+    --jaune:#fed641;
+    --gris:#464541;
+    --gris-clair:#f4f2f5;
+    --blanc:#ffffff;
+    --ombre:0 8px 30px rgba(0,0,0,.12);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Poppins',system-ui,Arial,sans-serif;color:var(--gris);background:#fff;line-height:1.5}
+  a{text-decoration:none;color:inherit}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+  h2.section-title{font-family:'Playfair Display',serif;font-size:2.1rem;color:var(--violet);text-align:center;margin-bottom:8px}
+  .section-sub{text-align:center;color:#8a8790;margin-bottom:36px;font-size:.98rem}
+  .badge-demo{position:fixed;bottom:16px;right:16px;background:var(--gris);color:#fff;font-size:.72rem;padding:8px 14px;border-radius:30px;z-index:999;box-shadow:var(--ombre);opacity:.9}
+
+  /* ===== Barre secondaire ===== */
+  .topbar{background:var(--gris);color:#e9e7ea;font-size:.8rem}
+  .topbar .wrap{display:flex;align-items:center;gap:22px;height:38px}
+  .topbar a{opacity:.85;transition:.2s}
+  .topbar a:hover{opacity:1;color:var(--jaune)}
+  .topbar .spacer{flex:1}
+  .topbar .lang span{padding:0 4px;cursor:pointer}
+  .topbar .lang b{color:var(--jaune)}
+  .topbar .rs a{margin-left:10px;font-weight:600}
+
+  /* ===== Header principal ===== */
+  header.main{position:sticky;top:0;z-index:100;background:#fff;box-shadow:0 2px 16px rgba(0,0,0,.07)}
+  .header-inner{display:flex;align-items:center;gap:30px;height:92px}
+  .logo{height:66px;width:auto;flex:none}
+  nav.primary{flex:1;display:flex;justify-content:flex-end;gap:6px;height:100%}
+  nav.primary > ul{list-style:none;display:flex;height:100%}
+  nav.primary > ul > li{position:relative;display:flex;align-items:center}
+  nav.primary > ul > li > a{padding:0 15px;height:100%;display:flex;align-items:center;font-weight:600;font-size:.86rem;letter-spacing:.02em;text-transform:uppercase;color:var(--gris);border-bottom:3px solid transparent;transition:.2s}
+  nav.primary > ul > li:hover > a{color:var(--violet);border-bottom-color:var(--jaune)}
+  .cta-reserver > a{background:var(--violet);color:#fff!important;border-radius:30px;margin-left:8px;padding:0 22px!important;height:44px!important;align-self:center}
+  .cta-reserver:hover > a{background:var(--violet-dark)!important;border-bottom-color:transparent!important}
+
+  /* Méga-menu */
+  .mega{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(10px);background:#fff;min-width:640px;box-shadow:var(--ombre);border-radius:0 0 14px 14px;border-top:4px solid var(--violet);padding:26px 30px;opacity:0;visibility:hidden;transition:.22s;z-index:120}
+  nav.primary > ul > li:hover .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .mega .cols{columns:2;column-gap:40px}
+  .mega a{display:block;padding:8px 0;font-size:.9rem;color:var(--gris);border-bottom:1px solid #eee;break-inside:avoid;transition:.15s}
+  .mega a:hover{color:var(--violet);padding-left:6px}
+  .mega a::before{content:"›";color:var(--jaune);font-weight:700;margin-right:8px}
+  .cta-reserver .mega{min-width:300px}
+  .cta-reserver .mega .cols{columns:1}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;height:78vh;min-height:520px;overflow:hidden}
+  .hero .slide{position:absolute;inset:0;opacity:0;animation:fade 24s infinite}
+  .hero .slide:nth-child(1){animation-delay:0s}
+  .hero .slide:nth-child(2){animation-delay:8s}
+  .hero .slide:nth-child(3){animation-delay:16s}
+  @keyframes fade{0%{opacity:0}4%{opacity:1}30%{opacity:1}36%{opacity:0}100%{opacity:0}}
+  .hero .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(94,47,100,.55))}
+  .hero .ici{position:absolute;left:34px;bottom:24px;z-index:6;width:200px;height:auto;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35))}
+  .hero-content{position:absolute;z-index:5;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:0 20px}
+  .hero-content .kicker{background:var(--jaune);color:var(--gris);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;padding:7px 16px;border-radius:20px;margin-bottom:20px}
+  .hero-content h1{font-family:'Playfair Display',serif;font-size:3.4rem;line-height:1.1;text-shadow:0 3px 20px rgba(0,0,0,.4);max-width:900px}
+  .hero-content p{margin-top:14px;font-size:1.15rem;font-weight:300;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+  /* barre de recherche hero */
+  .searchbar{margin-top:34px;background:#fff;border-radius:50px;display:flex;align-items:center;padding:6px;box-shadow:var(--ombre);width:min(640px,92vw)}
+  .searchbar input{flex:1;border:0;outline:0;padding:12px 20px;font-family:inherit;font-size:.95rem;color:var(--gris);background:transparent}
+  .searchbar button{background:var(--violet);color:#fff;border:0;border-radius:50px;padding:12px 28px;font-weight:600;cursor:pointer;font-family:inherit}
+
+  /* ===== Moteur de dispo (barre jaune) ===== */
+  .dispo{background:var(--jaune);padding:22px 0}
+  .dispo .inner{display:flex;align-items:center;flex-wrap:wrap;gap:14px;justify-content:center}
+  .dispo .titre{font-weight:700;text-transform:uppercase;color:var(--gris);font-size:.92rem;line-height:1.25;max-width:190px;text-align:right}
+  .dispo select,.dispo input[type=date]{font-family:inherit;font-size:.9rem;color:var(--gris);background:#fff;border:0;border-radius:6px;padding:11px 12px;outline:0;cursor:pointer}
+  .dispo select{max-width:280px}
+  .dispo .nuit{font-weight:700;color:var(--gris);font-size:.9rem;white-space:nowrap}
+  .dispo .go{background:var(--gris);color:#fff;border:0;border-radius:6px;padding:12px 26px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:.82rem;font-family:inherit;cursor:pointer;transition:.2s}
+  .dispo .go:hover{background:#000}
+  .dispo .pasdedate{width:100%;text-align:center;margin-top:12px;font-size:.85rem;color:var(--gris)}
+  .dispo .pasdedate input{margin-right:6px;vertical-align:middle}
+  @media(max-width:760px){.dispo .titre{max-width:none;text-align:center;width:100%}}
+
+  /* ===== Univers / gros blocs ===== */
+  .univers{padding:70px 0;background:var(--gris-clair)}
+  .u-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .u-card{position:relative;height:300px;border-radius:16px;overflow:hidden;box-shadow:var(--ombre);cursor:pointer}
+  .u-card img{transition:transform .6s}
+  .u-card:hover img{transform:scale(1.08)}
+  .u-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(94,47,100,.85))}
+  .u-card .lbl{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:22px;color:#fff}
+  .u-card .lbl small{display:block;text-transform:uppercase;letter-spacing:.14em;font-size:.66rem;color:var(--jaune);font-weight:700;margin-bottom:4px}
+  .u-card .lbl h3{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700}
+  .u-card .sub{position:absolute;z-index:4;inset:0;background:rgba(94,47,100,.94);color:#fff;padding:24px;display:flex;flex-direction:column;justify-content:center;opacity:0;transition:.3s}
+  .u-card:hover .sub{opacity:1}
+  .u-card .sub h3{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:12px;color:var(--jaune)}
+  .u-card .sub a{color:#fff;font-size:.85rem;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.18)}
+  .u-card .sub a::before{content:"› "}
+  .u-card .sub a:hover{color:var(--jaune)}
+  .u-card .sub.empty{align-items:center;text-align:center}
+  .u-card .sub.empty span{font-size:.85rem;opacity:.8;margin-top:8px}
+
+  /* ===== Inspirations ===== */
+  .inspi{padding:74px 0}
+  .i-scroll{display:grid;grid-auto-flow:column;grid-auto-columns:270px;gap:20px;overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory}
+  .i-scroll::-webkit-scrollbar{height:8px}
+  .i-scroll::-webkit-scrollbar-thumb{background:var(--violet);border-radius:10px}
+  .i-card{scroll-snap-align:start;border-radius:14px;overflow:hidden;box-shadow:var(--ombre);background:#fff}
+  .i-card .ph{height:180px;overflow:hidden;position:relative}
+  .i-card .ph img{transition:.5s}
+  .i-card:hover .ph img{transform:scale(1.07)}
+  .i-card .ph span{position:absolute;top:12px;left:12px;background:var(--jaune);color:var(--gris);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:5px 12px;border-radius:20px}
+  .i-card .txt{padding:16px 18px 20px}
+  .i-card .txt h4{font-size:1rem;color:var(--violet);margin-bottom:6px;font-weight:600}
+  .i-card .txt p{font-size:.82rem;color:#8a8790}
+
+  /* ===== Agenda ===== */
+  .agenda{padding:74px 0;background:var(--gris-clair)}
+  .a-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:10px}
+  .a-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--ombre)}
+  .a-card .ph{height:200px;overflow:hidden}
+  .a-card .body{padding:18px 20px 22px}
+  .a-card .date{color:var(--violet);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .a-card h4{font-size:1.08rem;margin-bottom:8px}
+  .a-card p{font-size:.85rem;color:#8a8790}
+  .center-btn{text-align:center;margin-top:40px}
+  .btn-outline{display:inline-block;border:2px solid var(--violet);color:var(--violet);padding:13px 34px;border-radius:30px;font-weight:600;transition:.2s}
+  .btn-outline:hover{background:var(--violet);color:#fff}
+
+  /* ===== Réserver bandeau ===== */
+  .book-strip{background:linear-gradient(120deg,var(--violet),var(--violet-dark));color:#fff;padding:56px 0;text-align:center}
+  .book-strip h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:10px}
+  .book-strip p{opacity:.9;margin-bottom:26px}
+  .book-strip .chips{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .book-strip .chips a{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:12px 26px;border-radius:30px;font-weight:600;transition:.2s}
+  .book-strip .chips a:hover{background:var(--jaune);color:var(--gris);border-color:var(--jaune)}
+
+  /* ===== Footer ===== */
+  footer{background:var(--gris);color:#c9c7ca;padding:56px 0 26px;font-size:.86rem}
+  .f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px}
+  footer h5{color:#fff;font-size:.95rem;margin-bottom:16px;text-transform:uppercase;letter-spacing:.06em}
+  footer ul{list-style:none}
+  footer li{margin-bottom:9px}
+  footer a:hover{color:var(--jaune)}
+  .f-logo{height:60px;width:auto;margin-bottom:16px}
+  .f-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:40px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.78rem;opacity:.75}
+  .rs-icons a{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;background:rgba(255,255,255,.1);border-radius:50%;margin-right:8px;font-size:.9rem}
+  .rs-icons a:hover{background:var(--jaune);color:var(--gris)}
+
+  @media(max-width:960px){
+    nav.primary{display:none}
+    .u-grid,.a-grid{grid-template-columns:1fr}
+    .hero-content h1{font-size:2.2rem}
+    .f-grid{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== BARRE SECONDAIRE ===== -->
+<div class="topbar">
+  <div class="wrap">
+    <a href="#">Espace Pro</a>
+    <a href="#">Presse</a>
+    <a href="#">Contact</a>
+    <a href="#">Newsletter</a>
+    <span class="spacer"></span>
+    <span class="lang"><span><b>FR</b></span>·<span>EN</span>·<span>DE</span></span>
+    <span class="rs"><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">YouTube</a></span>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="main">
+  <div class="wrap header-inner">
+    <a href="#"><img class="logo" src="assets/logo.png" alt="Pays de Manosque"></a>
+    <nav class="primary">
+      <ul>
+        <li>
+          <a href="#">Découvrir</a>
+          <div class="mega"><div class="cols">
+            <a href="#">Le Pays de Manosque</a>
+            <a href="#">Manosque</a>
+            <a href="#">Gréoux-les-Bains</a>
+            <a href="#">Les villages du territoire</a>
+            <a href="#">Le Verdon</a>
+            <a href="#">La lavande &amp; le plateau de Valensole</a>
+            <a href="#">Jean Giono</a>
+            <a href="#">Patrimoine et culture</a>
+            <a href="#">Terroir et gastronomie</a>
+            <a href="#">Webcams</a>
+          </div></div>
+        </li>
+        <li>
+          <a href="#">Activités &amp; Expériences</a>
+          <div class="mega"><div class="cols">
+            <a href="#">Randonnée</a>
+            <a href="#">Vélo et VTT</a>
+            <a href="#">Activités nautiques</a>
+            <a href="#">Bien-être</a>
+            <a href="#">Famille</a>
+            <a href="#">Œnotourisme</a>
+            <a href="#">Agrotourisme</a>
+            <a href="#">Activités de pleine nature</a>
+            <a href="#">Visites guidées</a>
+            <a href="#">Activités indoor</a>
+            <a href="#">Activités accessibles</a>
+          </div></div>
+        </li>
+        <li>
+          <a href="#">Séjourner</a>
+          <div class="mega"><div class="cols">
+            <a href="#">Hôtels</a>
+            <a href="#">Campings</a>
+            <a href="#">Chambres d'hôtes</a>
+            <a href="#">Locations de vacances</a>
+            <a href="#">Résidences de tourisme</a>
+            <a href="#">Hébergements insolites</a>
+            <a href="#">Aires de camping-cars</a>
+            <a href="#">Hébergements accessibles</a>
+          </div></div>
+        </li>
+        <li>
+          <a href="#">Agenda</a>
+          <div class="mega"><div class="cols">
+            <a href="#">Manifestations</a>
+            <a href="#">Festivals</a>
+            <a href="#">Marchés</a>
+            <a href="#">Expositions</a>
+            <a href="#">Spectacles</a>
+            <a href="#">Concerts</a>
+            <a href="#">Congrès</a>
+            <a href="#">Déclarer une manifestation</a>
+          </div></div>
+        </li>
+        <li>
+          <a href="#">Préparer mon séjour</a>
+          <div class="mega"><div class="cols">
+            <a href="#">Accès</a>
+            <a href="#">Mobilité</a>
+            <a href="#">Stationnement</a>
+            <a href="#">Offices de tourisme</a>
+            <a href="#">Brochures</a>
+            <a href="#">Accessibilité</a>
+            <a href="#">Météo</a>
+            <a href="#">Webcam</a>
+            <a href="#">Informations pratiques</a>
+          </div></div>
+        </li>
+        <li class="cta-reserver">
+          <a href="#">Réserver</a>
+          <div class="mega"><div class="cols">
+            <a href="#">Billetterie</a>
+            <a href="#">Visites guidées</a>
+            <a href="#">Verdon Croisières</a>
+            <a href="#">Activités</a>
+          </div></div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="slide"><img src="assets/hero-quinson.jpg" alt=""></div>
+  <div class="slide"><img src="assets/hero-vtt.jpg" alt=""></div>
+  <div class="slide"><img src="assets/hero-greoux.png" alt=""></div>
+  <img class="ici" src="assets/ici-jaune-complet.png" alt="ICI">
+  <div class="hero-content">
+    <span class="kicker">Durance · Luberon · Verdon</span>
+    <h1>Le Pays de Manosque,<br>la Provence grandeur nature</h1>
+    <p>Lavande, Verdon, thermalisme et villages de caractère</p>
+    <div class="searchbar">
+      <input type="text" placeholder="Que recherchez-vous ? (activité, hébergement, événement…)">
+      <button>Rechercher</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MOTEUR DE DISPO ===== -->
+<section class="dispo">
+  <div class="wrap inner">
+    <div class="titre">Disponibilités des hébergements</div>
+    <select>
+      <option>Hôtel · Chambre d'hôtes · Hébergements insolites</option>
+      <option>Hôtels</option>
+      <option>Campings</option>
+      <option>Chambres d'hôtes</option>
+      <option>Locations de vacances</option>
+      <option>Résidences de tourisme</option>
+      <option>Hébergements insolites</option>
+      <option>Aires de camping-cars</option>
+    </select>
+    <input type="date" value="2026-07-04">
+    <input type="date" value="2026-07-05">
+    <span class="nuit">1 nuit</span>
+    <select>
+      <option>Indifférent</option>
+      <option>1 nuit</option>
+      <option>2 nuits</option>
+      <option>1 semaine</option>
+    </select>
+    <button class="go">Rechercher</button>
+    <label class="pasdedate"><input type="checkbox">Je n'ai pas de dates précises</label>
+  </div>
+</section>
+
+<!-- ===== UNIVERS / GROS BLOCS ===== -->
+<section class="univers">
+  <div class="wrap">
+    <h2 class="section-title">Explorez nos univers</h2>
+    <p class="section-sub">Cliquez sur un univers pour accéder à son espace dédié</p>
+    <div class="u-grid">
+
+      <div class="u-card">
+        <img src="assets/thermes.jpg" alt="">
+        <div class="lbl"><small>Univers</small><h3>Cure &amp; Bien-être</h3></div>
+        <div class="sub">
+          <h3>Cure &amp; Bien-être</h3>
+          <a href="#">Préparer ma cure</a>
+          <a href="#">Pendant ma cure</a>
+          <a href="#">Hébergements</a>
+          <a href="#">Activités pour les curistes</a>
+          <a href="#">Bien-être et détente</a>
+          <a href="#">Thermalisme</a>
+          <a href="#">Mobilité</a>
+        </div>
+      </div>
+
+      <div class="u-card">
+        <img src="assets/valensole.jpg" alt="">
+        <div class="lbl"><small>Univers</small><h3>Plateau de Valensole</h3></div>
+        <div class="sub empty">
+          <h3>Plateau de Valensole</h3>
+          <span>Terre de lavande — la carte postale de la Provence</span>
+        </div>
+      </div>
+
+      <div class="u-card">
+        <img src="assets/manosque.jpg" alt="">
+        <div class="lbl"><small>Univers</small><h3>La Provence de Giono</h3></div>
+        <div class="sub empty">
+          <h3>La Provence de Giono</h3>
+          <span>Sur les pas de l'écrivain de Manosque</span>
+        </div>
+      </div>
+
+      <div class="u-card">
+        <img src="assets/verdon.jpg" alt="">
+        <div class="lbl"><small>Univers</small><h3>Intense Verdon</h3></div>
+        <div class="sub empty">
+          <h3>Intense Verdon</h3>
+          <span>Gorges, lacs et sensations fortes</span>
+        </div>
+      </div>
+
+      <div class="u-card">
+        <img src="assets/pierrevert.jpg" alt="">
+        <div class="lbl"><small>Univers</small><h3>Congrès &amp; Séminaires</h3></div>
+        <div class="sub">
+          <h3>Congrès &amp; Séminaires</h3>
+          <a href="#">Centre de Congrès L'Étoile</a>
+          <a href="#">Organiser un événement</a>
+          <a href="#">Séminaires &amp; Congrès</a>
+          <a href="#">Incentive &amp; cohésion</a>
+          <a href="#">Hébergements groupes</a>
+          <a href="#">Demande de devis</a>
+        </div>
+      </div>
+
+      <div class="u-card">
+        <img src="assets/hero-vtt.jpg" alt="">
+        <div class="lbl"><small>Univers</small><h3>Activités &amp; Expériences</h3></div>
+        <div class="sub empty">
+          <h3>Activités &amp; Expériences</h3>
+          <span>Toutes les façons de vivre le territoire</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSPIRATIONS ===== -->
+<section class="inspi">
+  <div class="wrap">
+    <h2 class="section-title">Inspirations</h2>
+    <p class="section-sub">Idées de séjours et d'escapades en Pays de Manosque</p>
+    <div class="i-scroll">
+      <a class="i-card"><div class="ph"><img src="assets/manosque.jpg"><span>Séjour</span></div><div class="txt"><h4>48h en Pays de Manosque</h4><p>L'essentiel en un week-end</p></div></a>
+      <a class="i-card"><div class="ph"><img src="assets/verdon.jpg"><span>Itinéraire</span></div><div class="txt"><h4>Une semaine autour du Verdon</h4><p>Le grand tour des gorges</p></div></a>
+      <a class="i-card"><div class="ph"><img src="assets/manosque.jpg"><span>Culture</span></div><div class="txt"><h4>Sur les traces de Jean Giono</h4><p>Balade littéraire</p></div></a>
+      <a class="i-card"><div class="ph"><img src="assets/valensole.jpg"><span>Nature</span></div><div class="txt"><h4>Découvrir la lavande</h4><p>Le plateau en fleurs</p></div></a>
+      <a class="i-card"><div class="ph"><img src="assets/thermes.jpg"><span>Bien-être</span></div><div class="txt"><h4>Week-end bien-être</h4><p>Thermes &amp; détente</p></div></a>
+      <a class="i-card"><div class="ph"><img src="assets/lac.jpg"><span>Famille</span></div><div class="txt"><h4>Que faire avec des enfants ?</h4><p>Activités en famille</p></div></a>
+      <a class="i-card"><div class="ph"><img src="assets/pierrevert.jpg"><span>Gourmand</span></div><div class="txt"><h4>Escapades gourmandes</h4><p>Terroir &amp; vignobles</p></div></a>
+      <a class="i-card"><div class="ph"><img src="assets/hero-quinson.jpg"><span>Pluie</span></div><div class="txt"><h4>Que faire quand il pleut ?</h4><p>Le programme indoor</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AGENDA ===== -->
+<section class="agenda">
+  <div class="wrap">
+    <h2 class="section-title">L'agenda à la une</h2>
+    <p class="section-sub">Les temps forts à ne pas manquer</p>
+    <div class="a-grid">
+      <a class="a-card"><div class="ph"><img src="assets/ev-14juillet.jpg"></div><div class="body"><div class="date">14 juillet</div><h4>Festivités du 14 juillet</h4><p>Feu d'artifice et animations dans tout le territoire.</p></div></a>
+      <a class="a-card"><div class="ph"><img src="assets/ev-petanque.jpg"></div><div class="body"><div class="date">Été 2026</div><h4>Grand Prix de pétanque</h4><p>Le rendez-vous incontournable des boulistes.</p></div></a>
+      <a class="a-card"><div class="ph"><img src="assets/ev-salon.jpg"></div><div class="body"><div class="date">Automne 2026</div><h4>Salon du livre</h4><p>Rencontres et dédicaces autour de la littérature.</p></div></a>
+    </div>
+    <div class="center-btn"><a class="btn-outline" href="#">Voir tout l'agenda</a></div>
+  </div>
+</section>
+
+<!-- ===== RÉSERVER ===== -->
+<section class="book-strip">
+  <div class="wrap">
+    <h2>Réservez votre expérience</h2>
+    <p>Billetterie, visites guidées et activités en ligne</p>
+    <div class="chips">
+      <a href="#">Billetterie</a>
+      <a href="#">Visites guidées</a>
+      <a href="#">Verdon Croisières</a>
+      <a href="#">Activités</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <img class="f-logo" src="assets/logo.png" alt="Pays de Manosque">
+        <p>Office de Tourisme Communautaire<br>Durance Luberon Verdon Agglomération</p>
+        <div class="rs-icons" style="margin-top:16px">
+          <a href="#">f</a><a href="#">◎</a><a href="#">▶</a>
+        </div>
+      </div>
+      <div>
+        <h5>Bureaux d'information</h5>
+        <ul>
+          <li><a href="#">Manosque</a></li>
+          <li><a href="#">Gréoux-les-Bains</a></li>
+          <li><a href="#">Valensole</a></li>
+          <li><a href="#">Riez</a></li>
+          <li><a href="#">Oraison</a></li>
+          <li><a href="#">Quinson</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Explorer</h5>
+        <ul>
+          <li><a href="#">Découvrir</a></li>
+          <li><a href="#">Activités &amp; Expériences</a></li>
+          <li><a href="#">Séjourner</a></li>
+          <li><a href="#">Agenda</a></li>
+          <li><a href="#">Préparer mon séjour</a></li>
+          <li><a href="#">Réserver</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Infos &amp; services</h5>
+        <ul>
+          <li><a href="#">Espace Pro</a></li>
+          <li><a href="#">Presse</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Brochures</a></li>
+          <li><a href="#">Accessibilité</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Office de Tourisme du Pays de Manosque — Maquette de travail</span>
+      <span>Mentions légales · CGV · Politique de confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<div class="badge-demo">Maquette — nouvelle arborescence V2</div>
+
+</body>
+</html>
